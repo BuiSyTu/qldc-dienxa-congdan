@@ -2,9 +2,17 @@
 
 import * as yup from 'yup'
 
+import { setCccd, setHoKhau, setNhanKhaus } from '../../../setup/redux/Slices/InformationSlice'
+
 import { Link } from 'react-router-dom'
 import React from 'react'
+import { accountApi } from '../../../apis/accountApi'
 import clsx from 'clsx'
+import { hoKhauApi } from '../../../apis/hoKhauApi'
+import jwtDecode from 'jwt-decode'
+import { saveToken } from '../../../utils/tokenHelper'
+import { setLogin } from '../../../setup/redux/Slices/AuthSlice'
+import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -14,11 +22,38 @@ const LoginSchema = yup.object().shape({
 })
 
 export function Login() {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(LoginSchema) })
+  const dispatch = useDispatch()
 
-  const onSubmit = (data) => {
-    console.log(data)
-    reset()
+  const { register, handleSubmit, formState: { errors } } = useForm({ resolver: yupResolver(LoginSchema) })
+
+  const onSubmit = async (formData) => {
+    const { username, password } = formData
+
+    const resAccount = await accountApi.login({
+      username,
+      password,
+    })
+
+    if (resAccount !== null) {
+      const { data: token } = resAccount
+      const payloadJwt = jwtDecode(token)
+
+      const { sub: cccd, exp: expiredTime } = payloadJwt
+      saveToken(token, expiredTime)
+      dispatch(setCccd(cccd))
+
+      const resHoKhau = await hoKhauApi.getInformation(cccd)
+      const { data: hoKhau } = resHoKhau
+      dispatch(setHoKhau(hoKhau))
+      
+      const { NhanKhaus: nhanKhaus } = hoKhau
+      dispatch(setNhanKhaus(nhanKhaus))
+
+      dispatch(setLogin(true))
+    } else {
+      setLogin(false)
+      alert('Đăng nhập không thành công')
+    } 
   }
 
   return (
@@ -46,8 +81,9 @@ export function Login() {
             'form-control form-control-lg form-control-solid',
           )}
           {...register('username')}
+          value='160024871'
         />
-        <span className='text-danger'>{errors.username?.message}</span>
+        <small className='text-danger'>{errors.username?.message}</small>
       </div>
 
       <div className='fv-row mb-10'>
@@ -64,8 +100,9 @@ export function Login() {
             'form-control form-control-lg form-control-solid',
           )}
           {...register('password')}
+          value='vuvietbien'
         />
-        <span className='text-danger'>{errors.password?.message}</span>
+        <small className='text-danger'>{errors.password?.message}</small>
       </div>
 
       {/* begin::Action */}

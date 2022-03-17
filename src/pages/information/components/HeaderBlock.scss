@@ -1,0 +1,11 @@
+.header-control {
+  font-size: large;
+  font-weight: 500;
+
+  &:after {
+    content: "";
+    display: block;
+    padding-top: 5px;
+    border-top: 1px dashed #358dcf;
+  }
+}

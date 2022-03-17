@@ -2,6 +2,7 @@ import * as yup from 'yup'
 
 import { Link } from 'react-router-dom';
 import React from 'react';
+import { accountApi } from '../../../apis/accountApi';
 import clsx from 'clsx';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -19,8 +20,21 @@ export function Registration() {
     resolver: yupResolver(RegistrationSchema)
   })
 
-  const onSubmit = (data) => {
-    console.log(data)
+  const onSubmit = async (data) => {
+    const { name, username, password } = data
+
+    const res = await accountApi.registration({
+      name,
+      username,
+      password,
+    })
+
+    if (!res) {
+      alert('Không thành công')
+    } else {
+      alert('Thành công')
+      window.location.href = '/public/login'
+    }
   }
 
   return (
@@ -55,7 +69,7 @@ export function Registration() {
             )}
             {...register('name')}
           />
-          <span className='text-danger'>{errors.name?.message}</span>
+          <small className='text-danger'>{errors.name?.message}</small>
       </div>
 
       <div className='fv-row mb-7'>
@@ -68,7 +82,7 @@ export function Registration() {
           )}
           {...register('username')}
         />
-        <span className='text-danger'>{errors.username?.message}</span>
+        <small className='text-danger'>{errors.username?.message}</small>
       </div>
 
       <div className='mb-10 fv-row' data-kt-password-meter='true'>
@@ -84,7 +98,7 @@ export function Registration() {
               {...register('password', { required: true })}
             />
           </div>
-          <span className='text-danger'>{errors.password?.message}</span>
+          <small className='text-danger'>{errors.password?.message}</small>
         </div>
       </div>
 
@@ -98,7 +112,7 @@ export function Registration() {
           )}
           {...register('repassword', { required: true })}
         />
-        <span className='text-danger'>{errors.repassword?.message}</span>
+        <small className='text-danger'>{errors.repassword?.message}</small>
       </div>
 
       <div className='fv-row mb-10'>
@@ -116,7 +130,7 @@ export function Registration() {
             Tôi đồng ý với chính sách sử dụng dịch vụ.
           </label>
         </div>
-        <span className='text-danger'>{errors.agreeService?.message}</span>
+        <small className='text-danger'>{errors.agreeService?.message}</small>
       </div>
 
       <div className='text-center'>
