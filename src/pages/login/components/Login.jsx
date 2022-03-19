@@ -10,6 +10,7 @@ import { accountApi } from '../../../apis/accountApi'
 import clsx from 'clsx'
 import { hoKhauApi } from '../../../apis/hoKhauApi'
 import jwtDecode from 'jwt-decode'
+import { nhanKhauApi } from '../../../apis/nhanKhauApi'
 import { saveToken } from '../../../utils/tokenHelper'
 import { setLogin } from '../../../setup/redux/Slices/AuthSlice'
 import { useDispatch } from 'react-redux'
@@ -42,12 +43,14 @@ export function Login() {
       saveToken(token, expiredTime)
       dispatch(setCccd(cccd))
 
-      const resHoKhau = await hoKhauApi.getInformation(cccd)
-      const { data: hoKhau } = resHoKhau
-      dispatch(setHoKhau(hoKhau))
+      // const resHoKhau = await hoKhauApi.getInformation(cccd)
+      // const { data: hoKhau } = resHoKhau
+      // dispatch(setHoKhau(hoKhau))
       
-      const { NhanKhaus: nhanKhaus } = hoKhau
-      dispatch(setNhanKhaus(nhanKhaus))
+      // const { NhanKhaus: nhanKhaus } = hoKhau
+      // dispatch(setNhanKhaus(nhanKhaus))
+      const resInformation = await nhanKhauApi.getByCccd(cccd)
+      const { data: information } = resInformation
 
       dispatch(setLogin(true))
     } else {

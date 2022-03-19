@@ -26,6 +26,25 @@ const login = async ({username, password}) => {
   }
 }
 
+const logout = async () => {
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: `${BASE_URL}/login`,
+      timeout: 15000,
+      headers: {
+        'Authorization': `Bearer ${ACCESS_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+    })
+
+    return res?.data
+  } catch (error) {
+    console.error(error)
+    return null
+  }
+}
+
 const registration = async ({name, username, password}) => {
   try {
     const res = await axios({
@@ -53,4 +72,5 @@ const registration = async ({name, username, password}) => {
 export const accountApi = {
   login,
   registration,
+  logout,
 }
