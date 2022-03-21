@@ -8,7 +8,7 @@ const getByCccd = async (cccd) => {
   try {
     const res = await axios({
       method: 'GET',
-      url: `${BASE_URL}/nhankhaus/cccd/${cccd}`,
+      url: `${BASE_URL}/nhankhaus/cccd/${cccd}?includes=DMHonNhan,DMQuanHe,DMDanToc,DMQuocTich,DMTonGiao,DMTinhTrangCuTru,DMVanHoa,DMChuyenMon,DMDoiTuong,HoKhau`,
       timeout: 15000,
       headers: {
         'Authorization': `Bearer ${ACCESS_TOKEN}`,

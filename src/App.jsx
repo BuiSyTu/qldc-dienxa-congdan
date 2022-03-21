@@ -4,7 +4,7 @@ import { checkValidToken } from './utils/tokenHelper'
 import { useSelector } from 'react-redux'
 
 const App = () => {
-  const login = useSelector(state => checkValidToken() ?? state.auth.login)
+  const login = useSelector(state => checkValidToken() || state.auth.login)
 
   return (
     login ? <InformationPage /> : <LoginPage />

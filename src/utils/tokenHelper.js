@@ -2,10 +2,10 @@ import Cookies from 'js-cookie'
 import moment from 'moment'
 
 export const checkValidToken = () => {
-  const token = Cookies.get('token')
+  const token = Cookies.get('token_public')
   if (!token) return false;
 
-  const expiredTime = parseInt(Cookies.get('expiredTime') ?? '0')
+  const expiredTime = parseInt(Cookies.get('expiredTime_public') ?? '0')
   const now = moment().unix()
   if (now > expiredTime) return false;
 
@@ -13,8 +13,8 @@ export const checkValidToken = () => {
 }
 
 export const saveToken = (token, expiredTime) => {
-  Cookies.set('token', token)
-  Cookies.set('expiredTime', expiredTime)
+  Cookies.set('token_public', token)
+  Cookies.set('expiredTime_public', expiredTime)
 }
 
 export const clearToken = (token) => {

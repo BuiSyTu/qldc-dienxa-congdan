@@ -2,8 +2,6 @@
 
 import * as yup from 'yup'
 
-import { setCccd, setHoKhau, setNhanKhaus } from '../../../setup/redux/Slices/InformationSlice'
-
 import { Link } from 'react-router-dom'
 import React from 'react'
 import { accountApi } from '../../../apis/accountApi'
@@ -36,22 +34,6 @@ export function Login() {
     })
 
     if (resAccount !== null) {
-      const { data: token } = resAccount
-      const payloadJwt = jwtDecode(token)
-
-      const { sub: cccd, exp: expiredTime } = payloadJwt
-      saveToken(token, expiredTime)
-      dispatch(setCccd(cccd))
-
-      // const resHoKhau = await hoKhauApi.getInformation(cccd)
-      // const { data: hoKhau } = resHoKhau
-      // dispatch(setHoKhau(hoKhau))
-      
-      // const { NhanKhaus: nhanKhaus } = hoKhau
-      // dispatch(setNhanKhaus(nhanKhaus))
-      const resInformation = await nhanKhauApi.getByCccd(cccd)
-      const { data: information } = resInformation
-
       dispatch(setLogin(true))
     } else {
       setLogin(false)
