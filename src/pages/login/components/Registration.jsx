@@ -9,8 +9,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 
 const RegistrationSchema = yup.object().shape({
   name: yup.string().required('Thông tin không được để trống'),
-  username: yup.string().required('Bạn chưa nhập tài khoản'),
-  password: yup.string().required('Bạn chưa nhập mật khẩu'),
+  username: yup.string().required('Bạn chưa nhập tài khoản').matches(/^[0-9]+$/, 'Số định danh không hợp lệ'),
+  password: yup.string().required('Bạn chưa nhập mật khẩu').min(6, 'Mật khẩu ít nhất phải chứa 6 ký tự'),
   repassword: yup.string().oneOf([yup.ref('password'), null], 'Thông tin phải khớp với phần mật khẩu'),
   agreeService: yup.bool().oneOf([true], 'Bạn chưa đồng ý với điều khoản dịch vụ')
 })

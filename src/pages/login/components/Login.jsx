@@ -6,18 +6,14 @@ import { Link } from 'react-router-dom'
 import React from 'react'
 import { accountApi } from '../../../apis/accountApi'
 import clsx from 'clsx'
-import { hoKhauApi } from '../../../apis/hoKhauApi'
-import jwtDecode from 'jwt-decode'
-import { nhanKhauApi } from '../../../apis/nhanKhauApi'
-import { saveToken } from '../../../utils/tokenHelper'
 import { setLogin } from '../../../setup/redux/Slices/AuthSlice'
 import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 const LoginSchema = yup.object().shape({
-  username: yup.string().required('Bạn chưa nhập tài khoản'),
-  password: yup.string().required('Bạn chưa nhập mật khẩu'),
+  username: yup.string().required('Bạn chưa nhập tài khoản').matches(/^[0-9]+$/, 'Số định danh không hợp lệ'),
+  password: yup.string().required('Bạn chưa nhập mật khẩu').min(6, 'Mật khẩu ít nhất phải chứa 6 ký tự'),
 })
 
 export function Login() {
@@ -66,7 +62,6 @@ export function Login() {
             'form-control form-control-lg form-control-solid',
           )}
           {...register('username')}
-          value='160024871'
         />
         <small className='text-danger'>{errors.username?.message}</small>
       </div>
@@ -85,7 +80,6 @@ export function Login() {
             'form-control form-control-lg form-control-solid',
           )}
           {...register('password')}
-          value='vuvietbien'
         />
         <small className='text-danger'>{errors.password?.message}</small>
       </div>
