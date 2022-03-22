@@ -37,9 +37,9 @@ const InformationPage = () => {
 
   return (
     <>
-      <header className='header d-flex'>
+      <header className='header'>
         <a href='/'>Thông tin cá nhân</a>
-        <a role='button' className='ms-auto' onClick={handleClickLogout}>Đăng xuất</a>
+        <a role='button' onClick={handleClickLogout}>Đăng xuất</a>
       </header>
 
       <div className='container'>
