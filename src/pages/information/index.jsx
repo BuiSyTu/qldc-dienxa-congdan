@@ -13,11 +13,14 @@ const InformationPage = () => {
 
   useEffect(() => {
     const fetchData = async() => {
-      const token = Cookies.get('token')
+      const token = Cookies.get('token_public')
+      console.log({token})
       const payloadJWT = jwtDecode(token)
+      console.log({payloadJWT})
       const { sub: cccd } = payloadJWT
   
       const res = await nhanKhauApi.getByCccd(cccd)
+      console.log(res)
 
       if (res !== null) {
         setDefaultValues(res?.data)

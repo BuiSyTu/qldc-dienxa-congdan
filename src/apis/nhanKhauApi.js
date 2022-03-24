@@ -12,8 +12,7 @@ const getByCccd = async (cccd) => {
       timeout: 15000,
       headers: {
         'Authorization': `Bearer ${ACCESS_TOKEN}`,
-        'Content-Type': 'application/json',
-        'userTokenKey': Cookies.get('token') ?? '',
+        'userTokenKey': Cookies.get('token_public') ?? '',
       },
     })
 
