@@ -50,6 +50,9 @@ const InformationPage = () => {
         <div className='row main'>
           <div className='list-group col-3 position-fixed mt-4'>
             <ul>
+              <a href='#ThongTinHoKhau' className='rounded border-2 mb-3 p-3 list-group-item list-group-item-action'>
+                <li className='list-item'>Thông tin hộ khẩu</li>
+              </a>
               <a href='#ThongTinCoBan' className='rounded border-2 mb-3 p-3 list-group-item list-group-item-action'>
                 <li className='list-item'>Thông tin cơ bản</li>
               </a>
@@ -68,9 +71,9 @@ const InformationPage = () => {
               <a href='#HoChieu' className='rounded border-2 mb-3 p-3 list-group-item list-group-item-action'>
                 <li className='list-item'>Hộ chiếu</li>
               </a>
-              <a href='#NhaOHoKinhDoanh' className='rounded border-2 mb-3 p-3 list-group-item list-group-item-action'>
+              {/* <a href='#NhaOHoKinhDoanh' className='rounded border-2 mb-3 p-3 list-group-item list-group-item-action'>
                 <li className='list-item'>Nhà ở, hộ kinh doanh</li>
-              </a>
+              </a> */}
             </ul>    
           </div>
 
@@ -82,6 +85,97 @@ const InformationPage = () => {
             data-bs-offset={0}
             className='scrollspy-example col-8 positon-fixed'
             tabIndex={0}>
+
+            <HeaderBlock text='Thông tin hộ khẩu' id='ThongTinHoKhau' />
+            <div className='row my-4'>
+              <div className='form-group col-4'>
+                <label htmlFor='SoNha'>Số nhà</label>
+                <input
+                  readOnly={true}
+                  value={defaultValues?.HoKhau?.SoNha ?? ''}
+                  type='text'
+                  className='form-control'
+                  id='SoNha'
+                  placeholder='' />
+              </div>
+              <div className='form-group col-4'>
+                <label htmlFor='Thon'>Thôn</label>
+                <input
+                  readOnly={true}
+                  value={defaultValues?.HoKhau?.TenThon ?? ''}
+                  type='text'
+                  className='form-control'
+                  id='Thon'
+                  placeholder='' />
+              </div>
+              <div className='form-group col-4'>
+                <label htmlFor='Xom'>Xóm</label>
+                <input
+                  readOnly={true}
+                  value={defaultValues?.HoKhau?.TenXom ?? ''}
+                  type='text'
+                  className='form-control'
+                  id='Xom'
+                  placeholder='' />
+              </div>
+            </div>
+
+            <div className='row my-4'>
+              <div className='form-group col-4'>
+                <label htmlFor='LoaiHo'>Loại hộ</label>
+                <input
+                  readOnly={true}
+                  value={defaultValues?.HoKhau?.DMLoaiHo?.Name ?? ''}
+                  type='text'
+                  className='form-control'
+                  id='LoaiHo'
+                  placeholder='' />
+              </div>
+              <div className='form-group col-4'>
+                <label htmlFor='NhaO'>Loại nhà ở</label>
+                <input
+                  readOnly={true}
+                  value={defaultValues?.HoKhau?.LoaiNhaO ?? ''}
+                  type='text'
+                  className='form-control'
+                  id='NhaO'
+                  placeholder='' />
+              </div>
+              <div className='form-group col-4'>
+                <label htmlFor='HoKinhDoanh'>Hộ kinh doanh</label>
+                <input
+                  readOnly={true}
+                  value={defaultValues?.HoKhau?.HoKinhDoanh ?? ''}
+                  type='text'
+                  className='form-control'
+                  id='HoKinhDoanh'
+                  placeholder='' />
+              </div>
+            </div>
+
+            <div className='row my-4'>
+              <div className='form-group col-4'>
+                <label htmlFor='TenChuHo'>Tên chủ hộ</label>
+                <input
+                  readOnly={true}
+                  value={defaultValues?.HoKhau?.TenChuHo ?? ''}
+                  type='text'
+                  className='form-control'
+                  id='TenChuHo'
+                  placeholder='' />
+              </div>
+              <div className='form-group col-4'>
+                <label htmlFor='CCCDCHuHo'>CCCD chủ hộ</label>
+                <input
+                  readOnly={true}
+                  value={defaultValues?.HoKhau?.CCCDCHuHo ?? ''}
+                  type='text'
+                  className='form-control'
+                  id='CCCDCHuHo'
+                  placeholder='' />
+              </div>
+            </div>
+
             <HeaderBlock text='Thông tin cơ bản' id='ThongTinCoBan' />
             <div className='row my-4'>
               <div className='form-group col-4'>
@@ -212,7 +306,7 @@ const InformationPage = () => {
                 <label htmlFor='TrinhDoVanHoa'>Trình độ văn hóa</label>
                 <input
                   readOnly={true}
-                  value={defaultValues?.TrinhDoVanHoa ?? ''}
+                  value={defaultValues?.DMVanHoa?.Name ?? ''}
                   type='text'
                   className='form-control'
                   id='TrinhDoVanHoa'
@@ -222,7 +316,7 @@ const InformationPage = () => {
                 <label htmlFor='TrinhDoChuyenMon'>Trình độ chuyên môn</label>
                 <input
                   readOnly={true}
-                  value={defaultValues?.TrinhDoChuyenMon ?? ''}
+                  value={defaultValues?.DMChuyenMon?.Name ?? ''}
                   type='text'
                   className='form-control'
                   id='TrinhDoChuyenMon'
@@ -353,13 +447,13 @@ const InformationPage = () => {
                 <label htmlFor='SoTheBHYT'>Số thẻ</label>
                 <input
                   readOnly={true}
-                  value={defaultValues?.SoTheBHYT ?? ''}
+                  value={defaultValues?.SoBHYT ?? ''}
                   type='text'
                   className='form-control'
                   id='SoTheBHYT'
                   placeholder='' />
               </div>
-              <div className='form-group col-4'>
+              {/* <div className='form-group col-4'>
                 <label htmlFor='NoiCapBHYT'>Nơi cấp</label>
                 <input
                   readOnly={true}
@@ -378,10 +472,7 @@ const InformationPage = () => {
                   className='form-control'
                   id='NgayCapBHYT'
                   placeholder='' />
-              </div>
-            </div>
-
-            <div className='row my-4'>
+              </div> */}
               <div className='form-group col-4'>
                 <label htmlFor='HanSuDungBHYT'>Hạn sử dụng</label>
                 <input
@@ -393,6 +484,19 @@ const InformationPage = () => {
                   placeholder='' />
               </div>
             </div>
+
+            {/* <div className='row my-4'>
+              <div className='form-group col-4'>
+                <label htmlFor='HanSuDungBHYT'>Hạn sử dụng</label>
+                <input
+                  readOnly={true}
+                  value={defaultValues?.HanSuDungBHYT ?? ''}
+                  type='text'
+                  className='form-control'
+                  id='HanSuDungBHYT'
+                  placeholder='' />
+              </div>
+            </div> */}
 
             <HeaderBlock text='Hộ chiếu' id='HoChieu' />
             <div className='row my-4'>
@@ -428,7 +532,7 @@ const InformationPage = () => {
               </div>
             </div>
 
-            <HeaderBlock text='Nhà ở, hộ kinh doanh' id='NhaOHoKinhDoanh' />
+            {/* <HeaderBlock text='Nhà ở, hộ kinh doanh' id='NhaOHoKinhDoanh' />
             <div className='row my-4'>
               <div className='form-group col-4'>
                 <label htmlFor='LoaiNhaO'>Loại nhà ở</label>
@@ -473,7 +577,7 @@ const InformationPage = () => {
                   id='DatChuyenDoi'
                   placeholder='' />
               </div>
-            </div>
+            </div> */}
           </form>
         </div>
       </div>
